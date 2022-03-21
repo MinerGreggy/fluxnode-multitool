@@ -40,7 +40,7 @@ HOT="${ORANGE}\xF0\x9F\x94\xA5${NC}"
 WORNING="${RED}\xF0\x9F\x9A\xA8${NC}"
 dversion="v7.0"
 
-PM2_INSTALL="0"
+PM2_INSTALL="1"
 zelflux_setting_import="0"
 
 #dialog color
