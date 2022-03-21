@@ -356,7 +356,7 @@ function check_tar()
 function pm2_install(){
     
     tmux kill-server > /dev/null 2>&1 && sleep 1
-    echo -e "${ARROW} ${CYAN}PM2 installing...${NC}"
+    echo -e "${ARROW} ${CYAN}PM2 installing (greggyversion)...${NC}"
     #npm install pm2@latest -g > /dev/null 2>&1
     
     if pm2 -v > /dev/null 2>&1
