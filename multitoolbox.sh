@@ -40,7 +40,7 @@ HOT="${ORANGE}\xF0\x9F\x94\xA5${NC}"
 WORNING="${RED}\xF0\x9F\x9A\xA8${NC}"
 dversion="v7.0"
 
-PM2_INSTALL="1"
+PM2_INSTALL="0"
 zelflux_setting_import="0"
 
 #dialog color
@@ -357,7 +357,7 @@ function pm2_install(){
     
     tmux kill-server > /dev/null 2>&1 && sleep 1
     echo -e "${ARROW} ${CYAN}PM2 installing...${NC}"
-    npm install pm2@latest -g > /dev/null 2>&1
+    #npm install pm2@latest -g > /dev/null 2>&1
     
     if pm2 -v > /dev/null 2>&1
     then
