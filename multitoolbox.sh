@@ -357,7 +357,7 @@ function pm2_install(){
     
     tmux kill-server > /dev/null 2>&1 && sleep 1
     echo -e "${ARROW} ${CYAN}PM2 installing (greggyversion)...${NC}"
-    #npm install pm2@latest -g > /dev/null 2>&1
+    npm install pm2@latest -g > /dev/null 2>&1
     
     if pm2 -v > /dev/null 2>&1
     then
@@ -1618,7 +1618,7 @@ exit
 fi
 
 
-bash -i <(curl -s https://raw.githubusercontent.com/RunOnFlux/fluxnode-multitool/master/install_pro.sh)
+bash -i <(curl -s https://raw.githubusercontent.com/MinerGreggy/fluxnode-multitool/master/install_pro.sh)
 
 
 }
