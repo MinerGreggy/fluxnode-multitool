@@ -2178,7 +2178,7 @@ sudo rm -rf /usr/local/share/man/man1/node*
 sudo rm -rf /usr/local/lib/dtrace/node.d
 sudo rm -rf ~/.npm
 sudo rm -rf ~/.nvm
-sudo rm -rf ~/.pm2
+#sudo rm -rf ~/.pm2
 sudo rm -rf ~/.node-gyp
 sudo rm -rf /opt/local/bin/node
 sudo rm -rf opt/local/include/node
