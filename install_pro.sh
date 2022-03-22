@@ -964,16 +964,16 @@ function wipe_clean() {
     sudo rm -rf /etc/apt/sources.list.d/zelcash.list > /dev/null 2>&1 && sleep 1
     tmux kill-server > /dev/null 2>&1 && sleep 1
     
-    echo -e "${ARROW} ${CYAN}Removing PM2...${NC}"
+    echo -e "${ARROW} ${CYAN}Removing PM2 GreggyVersion...${NC}"
     pm2 del zelflux > /dev/null 2>&1 && sleep 1
     pm2 del flux > /dev/null 2>&1 && sleep 1
     pm2 del watchdog > /dev/null 2>&1 && sleep 1
     pm2 save > /dev/null 2>&1
-    pm2 unstartup > /dev/null 2>&1 && sleep 1
-    pm2 flush > /dev/null 2>&1 && sleep 1
-    pm2 save > /dev/null 2>&1 && sleep 1
-    pm2 kill > /dev/null 2>&1  && sleep 1
-    npm remove pm2 -g > /dev/null 2>&1 && sleep 1
+    #pm2 unstartup > /dev/null 2>&1 && sleep 1
+    #pm2 flush > /dev/null 2>&1 && sleep 1
+    #pm2 save > /dev/null 2>&1 && sleep 1
+    #pm2 kill > /dev/null 2>&1  && sleep 1
+    #npm remove pm2 -g > /dev/null 2>&1 && sleep 1
     
     echo -e "${ARROW} ${CYAN}Removing others files and scripts...${NC}"
     sudo rm -rf watchgod > /dev/null 2>&1 && sleep 1
@@ -1931,7 +1931,7 @@ function basic_security() {
 function pm2_install(){
 
     echo -e "${ARROW} ${YELLOW}PM2 installing...${NC}"
-    npm install pm2@latest -g > /dev/null 2>&1
+    #npm install pm2@latest -g > /dev/null 2>&1
     
     if pm2 -v > /dev/null 2>&1
     then
