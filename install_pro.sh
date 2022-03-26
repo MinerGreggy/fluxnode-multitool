@@ -242,7 +242,8 @@ else
  continent="ALL"
 fi
 
-echo -e "${ARROW} ${CYAN}Selecting bootstrap server....${NC}"
+echo -e ""
+echo -e "${ARROW} ${YELLOW}Selecting bootstrap server....${NC}"
 echo -e "${ARROW} ${CYAN}Node Location: $country, Continent: $continent ${NC}"
 echo -e "${ARROW} ${CYAN}Searching in $continent....${NC}"
 }
@@ -1000,6 +1001,7 @@ function wipe_clean() {
     #sudo rm -rf ~/.zelcash/determ_zelnodes ~/.zelcash/sporks ~/$CONFIG_DIR/database ~/.zelcash/blocks ~/.zelcashchainstate  > /dev/null 2>&1 && sleep 1
     #sudo rm -rf ~/.zelcash  > /dev/null 2>&1 && sleep 1
     sudo rm -rf .zelbenchmark  > /dev/null 2>&1 && sleep 1
+    sudo rm -rf .fluxbenchmark  > /dev/null 2>&1 && sleep 1
     sudo rm -rf /home/$USER/stop_zelcash_service.sh > /dev/null 2>&1
     sudo rm -rf /home/$USER/start_zelcash_service.sh > /dev/null 2>&1
     
@@ -1430,35 +1432,24 @@ EOF
 	    tier
 	    if [[ "$kadena_possible" == "1" ]]; then
 	
-	    while true
+	      while true
                 do
 		
                     KDA_A=$(whiptail --inputbox "Node tier eligible to receive KDA rewards, what's your KDA address? Nothing else will be required on FluxOS regarding KDA." 8 85 3>&1 1>&2 2>&3)
                     if [[ "$KDA_A" != "" && "$KDA_A" != *kadena* ]]; then
 		    	
-			     echo -e "${ARROW} ${CYAN}Kadena address is valid.................[${CHECK_MARK}${CYAN}]${NC}"
-			 
-			  while true
-		          do
-			     KDA_C=$(whiptail --inputbox "Please enter your kadena chainid (0-19)" 8 85 3>&1 1>&2 2>&3)
-		             if [[ "$KDA_C" -ge "0"  && "$KDA_C" -le "19" ]]; then		    
-                              echo -e "${ARROW} ${CYAN}Kadena chainid is valid.................[${CHECK_MARK}${CYAN}]${NC}"	
-			      KDA_A="kadena:$KDA_A?chainid=$KDA_C"
-                              break
-                             else
-                              echo -e "${ARROW} ${CYAN}Kadena chainid is not valid.............[${X_MARK}${CYAN}]${NC}"			    
-                              sleep 2
-                             fi		     
-		          done
-			  
-			  break
+			echo -e "${ARROW} ${CYAN}Kadena address is valid.................[${CHECK_MARK}${CYAN}]${NC}"	
+			KDA_A="kadena:$KDA_A?chainid=0"			    
+                        sleep 2
+			break
+			
 		    else	     
-		              echo -e "${ARROW} ${CYAN}Kadena address is not valid.............[${X_MARK}${CYAN}]${NC}"
-			   sleep 2		     
+		        echo -e "${ARROW} ${CYAN}Kadena address is not valid.............[${X_MARK}${CYAN}]${NC}"
+			sleep 2		     
 		    fi
               done
 	                 
-        fi
+           fi
 	
  fi      
  
@@ -2304,8 +2295,8 @@ fi
 
 function status_loop() {
 
-network_height_01=$(curl -sk -m 10 https://explorer.runonflux.io/api/status?q=getInfo 2> /dev/null | jq '.info.blocks')
-network_height_03=$(curl -sk -m 10 https://explorer.zelcash.online/api/status?q=getInfo 2> /dev/null | jq '.info.blocks')
+network_height_01=$(curl -sk -m 10 https://explorer.runonflux.io/api/status?q=getInfo 2> /dev/null | jq '.info.blocks' 2> /dev/null)
+network_height_03=$(curl -sk -m 10 https://explorer.zelcash.online/api/status?q=getInfo 2> /dev/null | jq '.info.blocks' 2> /dev/null)
 
 EXPLORER_BLOCK_HIGHT=$(max "$network_height_01" "$network_height_03")
 
