@@ -912,7 +912,7 @@ echo -e "${ARROW} ${CYAN}Creating config file....${NC}"
 
 
 #if whiptail --yesno "Would you like enable FluxOS auto update?" 8 60; then
-flux_update='1'
+flux_update='0'
 #sleep 1
 #else
 ##flux_update='0'
@@ -920,7 +920,7 @@ flux_update='1'
 #fi
 
 #if whiptail --yesno "Would you like enable Flux daemon auto update?" 8 60; then
-daemon_update='1'
+daemon_update='0'
 ##sleep 1
 #else
 #daemon_update='0'
@@ -928,7 +928,7 @@ daemon_update='1'
 #fi
 
 #if whiptail --yesno "Would you like enable Flux benchmark auto update?" 8 60; then
-bench_update='1'
+bench_update='0'
 #sleep 1
 #else
 ##bench_update='0'
