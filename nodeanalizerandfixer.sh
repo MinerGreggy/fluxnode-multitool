@@ -227,21 +227,22 @@ fi
 echo -e ""
 echo -e "${BOOK} ${YELLOW}FluxOS networking: ${NC}"
 if [[ "$UPNP" == "1" ]]; then
-echo -e "${PIN} ${CYAN} UPnP MODE: ${GREEN}ENABLED${NC}"
+echo -e "${PIN} ${CYAN}UPnP MODE: ${GREEN}ENABLED${NC}"
 else
-echo -e "${PIN} ${CYAN} UPnP MODE: ${RED}DISABLED${NC}"
+echo -e "${PIN} ${CYAN}UPnP MODE: ${RED}DISABLED${NC}"
 fi
-echo -e "${PIN} ${CYAN} FluxAPI PORT: ${ORANGE}$FluxAPI ${NC}"
-echo -e "${PIN} ${CYAN} FluxUI PORT: ${ORANGE}$FluxUI ${NC}"
+echo -e "${PIN} ${CYAN}FluxAPI PORT: ${ORANGE}$FluxAPI ${NC}"
+echo -e "${PIN} ${CYAN}FluxUI PORT: ${ORANGE}$FluxUI ${NC}"
 
-error_check=$(tail -n10 /home/$USER/.pm2/logs/flux-out.log | grep "UPnP failed to verify")
+if [[ -f /home/$USER/.pm2/logs/flux-out.log ]]; then
+error_check=$(tail -n10 /home/$USER/.pm2/logs/flux-out.log | grep "UPnP failed")
   if [[ "$error_check" != "" ]]; then
     echo -e ""
     echo -e "${ARROW} ${YELLOW}Checking FluxOS logs... ${NC}"
     echo -e "${WORNING} ${RED}Problem with UPnP detected, FluxOS Shutting down..."
     echo -e ""
   fi
-
+fi
 
 }
 
@@ -502,11 +503,11 @@ fi
 
 if [[ "$WANIP" != "" ]]; then
 
-back_error_check=$(curl -s -m 5 http://$WANIP:16127/zelid/loginphrase | jq -r .status )
+back_error_check=$(curl -s -m 5 http://$WANIP:$FluxAPI/zelid/loginphrase | jq -r .status )
 
   if [[ "$back_error_check" != "success" &&  "$back_error_check" != "" ]]; then
   
-        back_error=$(curl -s -m 8 http://$WANIP:16127/zelid/loginphrase | jq -r .data.message.message 2>/dev/null )
+        back_error=$(curl -s -m 8 http://$WANIP:$FluxAPI/zelid/loginphrase | jq -r .data.message.message 2>/dev/null )
 	
 	if [[ "$back_error" != "" ]]; then
 	
@@ -514,7 +515,7 @@ back_error_check=$(curl -s -m 5 http://$WANIP:16127/zelid/loginphrase | jq -r .s
 	  
         else
 	
-           back_error=$(curl -s -m 8 http://$WANIP:16127/zelid/loginphrase | jq -r .data.message 2>/dev/null )
+           back_error=$(curl -s -m 8 http://$WANIP:$FluxAPI/zelid/loginphrase | jq -r .data.message 2>/dev/null )
 	   
    	   if [[ "$back_error" != "" ]]; then  
 	   
@@ -608,7 +609,7 @@ fi
 echo -e "${PIN} ${CYAN}Node status: $node_status_color${NC}"
 
 if [[ "$node_status" == "DOS" ]]; then
-blocks_till=$($COIN_CLI  getdoslist | jq .[] | grep "$collateral" -A4 -B1 | jq .eligible_in)
+blocks_till=$($COIN_CLI  getdoslist | jq .[] | grep "$collateral" -A5 -B1 | jq .eligible_in)
 dos_till=$((blocks_hight+blocks_till))
 echo -e "${PIN} ${RED}DOS ${CYAN}Till: ${ORANGE}$dos_till ${CYAN}EXPIRE_COUNT: ${ORANGE}$blocks_till${CYAN} Time left: ${RED}~$((2*blocks_till)) min. ${NC}"
 fi
@@ -948,12 +949,12 @@ if [[ "$required_ver" != "" ]]; then
 echo -e "${CHECK_MARK} ${CYAN} Flux config  ~/$FLUX_DIR/config/userconfig.js exists${NC}"
 
 ZELIDLG=`echo -n $(grep -w zelid /home/$USER/$FLUX_DIR/config/userconfig.js | sed -e "s/'//g" | sed -e "s/,//g" | sed -e "s/.*zelid://g") | wc -m`
-if [ "$ZELIDLG" -eq "35" ] || [ "$ZELIDLG" -eq "34" ]; then
-echo -e "${CHECK_MARK} ${CYAN} Zel ID is valid${NC}"
+if [[ "$ZELIDLG" -eq "35" || "$ZELIDLG" -eq "34" || "$ZELIDLG" -eq "33" ]]; then
+ echo -e "${CHECK_MARK} ${CYAN} Zel ID is valid${NC}"
 elif [[ "$ZELIDLG" == "0" || "$ZELIDLG" == "2" ]]; then
-echo -e "${X_MARK} ${CYAN} Zel ID is missing...${NC}"
+ echo -e "${X_MARK} ${CYAN} Zel ID is missing...${NC}"
 else
-echo -e "${X_MARK} ${CYAN} Zel ID is not valid${NC}"
+ echo -e "${X_MARK} ${CYAN} Zel ID is not valid${NC}"
 fi
 
 if [ -f ~/$FLUX_DIR/error.log ]
