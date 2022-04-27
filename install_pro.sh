@@ -2318,23 +2318,23 @@ fi
 
 function install_nodejs() {
 echo -e "${ARROW} ${YELLOW}Removing any instances of Nodejs...${NC}"
-n-uninstall -y > /dev/null 2>&1 && sleep 1
-rm -rf ~/n
-sudo apt-get remove nodejs npm nvm -y > /dev/null 2>&1 && sleep 1
-sudo apt-get purge nodejs nvm -y > /dev/null 2>&1 && sleep 1
-sudo rm -rf /usr/local/bin/npm
-sudo rm -rf /usr/local/share/man/man1/node*
-sudo rm -rf /usr/local/lib/dtrace/node.d
-sudo rm -rf ~/.npm
-sudo rm -rf ~/.nvm
-#sudo rm -rf ~/.pm2
-sudo rm -rf ~/.node-gyp
-sudo rm -rf /opt/local/bin/node
-sudo rm -rf opt/local/include/node
-sudo rm -rf /opt/local/lib/node_modules
-sudo rm -rf /usr/local/lib/node*
-sudo rm -rf /usr/local/include/node*
-sudo rm -rf /usr/local/bin/node*
+#n-uninstall -y > /dev/null 2>&1 && sleep 1
+#rm -rf ~/n
+#sudo apt-get remove nodejs npm nvm -y > /dev/null 2>&1 && sleep 1
+#sudo apt-get purge nodejs nvm -y > /dev/null 2>&1 && sleep 1
+#sudo rm -rf /usr/local/bin/npm
+#sudo rm -rf /usr/local/share/man/man1/node*
+#sudo rm -rf /usr/local/lib/dtrace/node.d
+#sudo rm -rf ~/.npm
+#sudo rm -rf ~/.nvm
+#sudo rm -rf ~/.pm2remove 
+#sudo rm -rf ~/.node-gyp
+#sudo rm -rf /opt/local/bin/node
+#sudo rm -rf opt/local/include/node
+#sudo rm -rf /opt/local/lib/node_modules
+#sudo rm -rf /usr/local/lib/node*
+#sudo rm -rf /usr/local/include/node*
+#sudo rm -rf /usr/local/bin/node*
 echo -e "${ARROW} ${YELLOW}Nodejs installing...${NC}"
 #export NVM_DIR="$HOME/.nvm" && (
  # git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR" > /dev/null 2>&1 
